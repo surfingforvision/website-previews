@@ -1,0 +1,60 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "Surfing for Vision preview",
+		"author": "surfingforvision",
+		"description": "sfv-theme and sfv-registration from a pull request, with demo pages built by dev/build-pages.php. Runs entirely in the browser; nothing is saved."
+	},
+	"landingPage": "/",
+	"preferredVersions": {
+		"php": "8.5",
+		"wp": "latest"
+	},
+	"login": true,
+	"steps": [
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "Surfing For Vision",
+				"blogdescription": "Sharing the Stoke with the BVI",
+				"permalink_structure": "/%postname%/"
+			}
+		},
+		{
+			"step": "installTheme",
+			"themeData": {
+				"resource": "git:directory",
+				"url": "https://github.com/surfingforvision/website-previews",
+				"ref": "pr-5",
+				"path": "sfv-theme"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/surfingforvision/website-previews",
+				"ref": "pr-5",
+				"path": "sfv-registration"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/sfv-build-pages.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/surfingforvision/website-previews/f35c217cb21db62da2463a05ed65582dd71342b5/dev/build-pages.php"
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require_once '/wordpress/wp-load.php'; require '/wordpress/wp-content/sfv-build-pages.php';"
+		}
+	]
+}
