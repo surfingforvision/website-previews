@@ -1,0 +1,298 @@
+/*
+ * Registration form styles, scoped to the block so they work under any theme.
+ * Layout values copied from legacy/koinonia/style.css (.sfv-form-*, .sfv-field, …).
+ * Colours follow the theme's palette (sfv-theme/theme.json) with the Figma values
+ * as fallbacks; fonts are inherited from the theme.
+ */
+
+.sfv-registration {
+	--sfv-ink: var(--wp--preset--color--ink, #000000);
+	--sfv-deep: var(--wp--preset--color--deep, #01303b);
+	--sfv-teal: var(--wp--preset--color--teal, #006769);
+	--sfv-lime: var(--wp--preset--color--lime, #d1f462);
+	--sfv-error: #b51515;
+	color: var(--sfv-ink);
+}
+
+.sfv-registration *,
+.sfv-registration *::before,
+.sfv-registration *::after {
+	box-sizing: border-box;
+}
+
+.sfv-registration .sfv-sr-only {
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.sfv-registration a:focus-visible,
+.sfv-registration button:focus-visible,
+.sfv-registration input:focus-visible,
+.sfv-registration [tabindex]:focus-visible {
+	box-shadow: 0 0 0 6px var(--sfv-lime);
+	outline: 3px solid var(--sfv-deep);
+	outline-offset: 0;
+}
+
+.sfv-registration .sfv-button {
+	align-items: center;
+	background: var(--sfv-lime);
+	border: 2px solid var(--sfv-teal);
+	border-radius: 999px;
+	color: var(--sfv-deep);
+	display: inline-flex;
+	font-size: 24px;
+	font-weight: 700;
+	justify-content: center;
+	line-height: 1;
+	margin-top: 10px;
+	min-height: 66px;
+	min-width: 315px;
+	padding: 15px 32px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.sfv-registration .sfv-form-shell h2 {
+	color: var(--sfv-teal);
+	font-size: var(--wp--preset--font-size--heading, 40px);
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.08;
+	margin: 0 0 24px;
+}
+
+.sfv-registration .sfv-release {
+	border: 2px solid var(--sfv-deep);
+	border-radius: 6px;
+	max-height: 410px;
+	overflow: auto;
+	padding: 28px 32px 20px;
+}
+
+.sfv-registration .sfv-release h3 {
+	color: var(--sfv-deep);
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 0;
+	line-height: 1.12;
+	margin: 0 0 22px;
+	text-transform: uppercase;
+}
+
+.sfv-registration .sfv-release p {
+	font-size: 16px;
+	line-height: 1.28;
+	margin: 0 0 18px;
+}
+
+.sfv-registration .sfv-registration-form {
+	margin-top: 44px;
+}
+
+.sfv-registration .sfv-form-grid {
+	display: grid;
+	gap: 34px 46px;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sfv-registration .sfv-field {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.sfv-registration .sfv-field--full {
+	grid-column: 1 / -1;
+}
+
+.sfv-registration .sfv-field label,
+.sfv-registration .sfv-field legend {
+	color: var(--sfv-deep);
+	display: block;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 1;
+	margin: 0 0 12px;
+}
+
+.sfv-registration .sfv-required {
+	color: #d42121;
+	display: inline-block;
+	margin-right: 2px;
+}
+
+.sfv-registration .sfv-field input[type="text"],
+.sfv-registration .sfv-field input[type="email"],
+.sfv-registration .sfv-field input[type="tel"],
+.sfv-registration .sfv-field input[type="number"] {
+	appearance: none;
+	background: #ffffff;
+	border: 2px solid var(--sfv-deep);
+	border-radius: 4px;
+	color: var(--sfv-ink);
+	font: inherit;
+	font-size: 19px;
+	height: 58px;
+	line-height: 1;
+	padding: 0 16px;
+	width: 100%;
+}
+
+.sfv-registration .sfv-field input:focus {
+	border-color: var(--sfv-teal);
+	box-shadow: 0 0 0 6px var(--sfv-lime);
+	outline: 3px solid var(--sfv-deep);
+	outline-offset: 0;
+}
+
+.sfv-registration .sfv-radio-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 18px 42px;
+	padding-top: 4px;
+}
+
+.sfv-registration .sfv-field .sfv-radio {
+	align-items: center;
+	display: inline-flex;
+	font-size: 18px;
+	font-weight: 700;
+	gap: 10px;
+	line-height: 1.1;
+	margin: 0;
+}
+
+.sfv-registration .sfv-radio input {
+	accent-color: var(--sfv-teal);
+	height: 20px;
+	width: 20px;
+}
+
+.sfv-registration .sfv-form-error {
+	color: var(--sfv-error);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.15;
+	margin: 8px 0 0;
+}
+
+.sfv-registration .sfv-form-error--global {
+	background: #fff2f2;
+	border: 2px solid var(--sfv-error);
+	border-radius: 4px;
+	margin: 28px 0 0;
+	padding: 12px 14px;
+}
+
+.sfv-registration .sfv-field.has-error input[type="text"],
+.sfv-registration .sfv-field.has-error input[type="email"],
+.sfv-registration .sfv-field.has-error input[type="tel"],
+.sfv-registration .sfv-field.has-error input[type="number"] {
+	border-color: var(--sfv-error);
+}
+
+.sfv-registration .sfv-release-ack {
+	margin-top: 34px;
+}
+
+.sfv-registration .sfv-release-ack label {
+	align-items: flex-start;
+	color: var(--sfv-deep);
+	display: flex;
+	font-size: 18px;
+	font-weight: 700;
+	gap: 12px;
+	line-height: 1.18;
+	margin: 0;
+}
+
+.sfv-registration .sfv-release-ack input {
+	accent-color: var(--sfv-teal);
+	flex: 0 0 auto;
+	height: 22px;
+	margin-top: -2px;
+	width: 22px;
+}
+
+.sfv-registration .sfv-submit-button {
+	border-color: var(--sfv-deep);
+	cursor: pointer;
+	display: flex;
+	font-family: inherit;
+	font-size: 18px;
+	font-weight: 700;
+	justify-content: center;
+	margin: 46px auto 0;
+	min-width: 365px;
+	text-align: center;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+.sfv-registration .sfv-register-success {
+	padding: 0 0 34px;
+}
+
+.sfv-registration .sfv-register-success h2 {
+	color: var(--sfv-deep);
+	font-size: 39px;
+}
+
+.sfv-registration .sfv-register-success p {
+	color: var(--sfv-deep);
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 1.18;
+	margin: -10px 0 30px;
+}
+
+.sfv-registration .sfv-register-success .sfv-button {
+	font-size: 17px;
+	min-height: 46px;
+	min-width: 220px;
+	padding: 11px 23px;
+	text-decoration: underline;
+}
+
+@media (max-width: 800px) {
+	.sfv-registration .sfv-form-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.sfv-registration .sfv-register-success h2 {
+		font-size: 29px;
+	}
+
+	.sfv-registration .sfv-release {
+		max-height: 360px;
+		padding: 22px 20px 14px;
+	}
+
+	.sfv-registration .sfv-submit-button {
+		min-width: 0;
+		width: 100%;
+	}
+}
+
+@media (max-width: 640px) {
+	.sfv-registration .sfv-form-shell h2 {
+		font-size: 29px;
+	}
+
+	.sfv-registration .sfv-register-success h2 {
+		font-size: 24px;
+	}
+
+	.sfv-registration .sfv-radio-row {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}
