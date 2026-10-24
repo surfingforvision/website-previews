@@ -1,0 +1,514 @@
+/*
+Theme Name: Surfing for Vision
+Theme URI: https://surfingforvision.com/
+Author: Surfing for Vision
+Description: Standalone block theme for surfingforvision.com. Layouts live here as patterns; all copy, dates and images live in the database and are edited in the block editor.
+Requires at least: 7.0
+Tested up to: 7.1
+Requires PHP: 8.0
+Version: 0.2.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: sfv-theme
+*/
+
+/*
+ * Focus ring visible on every background in the palette: a deep inner ring
+ * (14:1 on white) plus a lime outer ring (11:1 on deep teal).
+ */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+	box-shadow: 0 0 0 6px var(--wp--preset--color--lime);
+	outline: 3px solid var(--wp--preset--color--deep);
+	outline-offset: 0;
+}
+
+/* Glide to #about / #sponsors instead of jumping, unless the visitor's
+   system asks for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+/* Visually hidden but announced by screen readers. */
+.screen-reader-text:not(:focus) {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Header: a teal bar floating over the first section (hero or page banner).
+ * ------------------------------------------------------------------------- */
+
+:root {
+	--sfv-header-offset: 150px;
+}
+
+.sfv-site-header {
+	left: 0;
+	padding: 27px var(--wp--style--root--padding-right) 0 var(--wp--style--root--padding-left);
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 10;
+}
+
+body.admin-bar .sfv-site-header {
+	top: var(--wp-admin--admin-bar--height, 32px);
+}
+
+.sfv-header__bar {
+	align-items: center;
+	background: var(--wp--preset--color--teal);
+	border: 2px solid var(--wp--preset--color--white);
+	border-radius: var(--wp--custom--radius--card);
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 32px;
+	justify-content: space-between;
+	margin: 0 auto;
+	max-width: var(--wp--style--global--wide-size);
+	min-height: 73px;
+	padding: 10px 24px;
+}
+
+.sfv-brand {
+	align-items: center;
+	color: var(--wp--preset--color--white);
+	display: inline-flex;
+	font-size: 1.4375rem;
+	font-weight: 700;
+	gap: 12px;
+	text-decoration: none;
+}
+
+.sfv-brand__mark {
+	height: 30px;
+	width: auto;
+}
+
+.sfv-brand__for {
+	font-weight: 400;
+}
+
+.sfv-nav ul,
+.sfv-footer ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sfv-nav ul {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 40px;
+}
+
+.sfv-nav a {
+	align-items: center;
+	color: var(--wp--preset--color--white);
+	display: inline-flex;
+	min-height: 44px;
+	font-size: var(--wp--preset--font-size--label);
+	font-weight: 600;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+.sfv-nav a:hover {
+	text-decoration: none;
+}
+
+.sfv-nav a.sfv-nav__donate {
+	background: var(--wp--preset--color--lime);
+	border: 1px solid var(--wp--preset--color--deep);
+	border-radius: var(--wp--custom--radius--pill);
+	color: var(--wp--preset--color--deep);
+	min-height: 40px;
+	padding: 0 20px;
+}
+
+/* The page you're on: shown by more than color (thicker underline). */
+.sfv-nav a[aria-current="page"],
+.sfv-footer__nav a[aria-current="page"] {
+	text-decoration-thickness: 3px;
+	text-underline-offset: 0.25em;
+}
+
+/* First section clears the floating header and shares the page's side margins. */
+.sfv-hero,
+.sfv-banner {
+	padding-left: var(--wp--style--root--padding-left);
+	padding-right: var(--wp--style--root--padding-right);
+	padding-top: var(--sfv-header-offset);
+}
+
+.sfv-banner {
+	background-color: var(--wp--preset--color--deep);
+}
+
+/*
+ * Photo overlay for the hero and page banners. White heading text must stay
+ * readable over any photo, including bright surf: 88% deep teal gives at least
+ * 8.9:1 even over pure white. It stays solid out to past the end of the
+ * heading (at most 11.5em ≈ 713px wide, from the start of the content column,
+ * which is centred on wide screens) and only then fades, so the photo shows on
+ * the right. Overrides the gradient
+ * saved in the block, which faded too early (as low as 1:1 behind line ends).
+ */
+.sfv-hero > .wp-block-cover__background,
+.sfv-banner > .wp-block-cover__background {
+	background: linear-gradient(
+		90deg,
+		rgba(1, 48, 59, 0.88) 0,
+		rgba(1, 48, 59, 0.88) calc(max(var(--wp--style--root--padding-left), (100% - var(--wp--style--global--wide-size)) / 2) + 780px),
+		rgba(1, 48, 59, 0.3) calc(max(var(--wp--style--root--padding-left), (100% - var(--wp--style--global--wide-size)) / 2) + 780px + 25vw)
+	) !important;
+	opacity: 1 !important;
+}
+
+/* The page content's first band tucks under the banner like the homepage card. */
+.sfv-banner + .wp-block-post-content {
+	margin-block-start: 0;
+}
+
+/* The banner is a template-level cover, so its inner container would otherwise
+   get the root side padding a second time. */
+.sfv-banner > .wp-block-cover__inner-container.has-global-padding {
+	padding-inline: 0;
+}
+
+/* Keep the heading on the wide column's left edge but wrap it like the design (~11.5em). */
+.sfv-hero .wp-block-cover__inner-container > h1.alignwide,
+.sfv-banner .wp-block-cover__inner-container > h1.alignwide {
+	/* !important to beat the constrained layout's own !important auto margins. */
+	margin-left: max(0px, calc((100% - var(--wp--style--global--wide-size)) / 2)) !important;
+	margin-right: auto !important;
+	max-width: min(11.5em, 100%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Sections and cards
+ * ------------------------------------------------------------------------- */
+
+:where(.wp-site-blocks) > main > .wp-block-post-content > .alignfull:first-child,
+.wp-block-post-content > .alignfull + .alignfull {
+	margin-block-start: 0;
+}
+
+.is-style-sfv-card {
+	background: var(--wp--preset--color--white);
+	box-sizing: border-box;
+	border: var(--wp--custom--border--width) solid var(--wp--preset--color--deep);
+	border-radius: var(--wp--custom--radius--card);
+	padding: clamp(32px, 4.5vw, 56px);
+	position: relative;
+}
+
+/* Card bands: the card sits on the light band with equal space above and below.
+   (Figma overlaps the card onto the photo by 24px; dropped in review because it
+   read as too high next to the space below.) */
+.sfv-band {
+	padding-top: var(--wp--preset--spacing--60);
+}
+
+.is-style-sfv-kicker {
+	align-items: center;
+	display: flex;
+	font-size: var(--wp--preset--font-size--kicker);
+	font-weight: 700;
+	gap: 8px;
+	text-transform: uppercase;
+}
+
+.is-style-sfv-kicker::before {
+	background: var(--wp--preset--color--teal);
+	border-radius: 50%;
+	content: "";
+	flex: 0 0 14px;
+	height: 14px;
+}
+
+.has-deep-background-color .is-style-sfv-kicker::before {
+	background: var(--wp--preset--color--lime);
+}
+
+/* Teal links are too dark on deep teal (2:1); use lime there (11:1). */
+.has-deep-background-color a:where(:not(.wp-element-button)) {
+	color: var(--wp--preset--color--lime);
+}
+
+.is-style-sfv-framed img {
+	border: var(--wp--custom--border--width) solid var(--wp--preset--color--lime);
+	border-radius: var(--wp--custom--radius--card);
+	display: block;
+	height: auto;
+	width: 100%;
+}
+
+.sfv-event-details p {
+	line-height: 1.5;
+	margin: 0 0 0.6em;
+}
+
+.sfv-event-details__note {
+	display: inline-block;
+	font-size: var(--wp--preset--font-size--kicker);
+	line-height: 1.1;
+}
+
+.wp-block-separator.is-style-wide {
+	border: 0;
+	height: 2px;
+	margin-block: clamp(28px, 4vw, 48px);
+}
+
+/* ---------------------------------------------------------------------------
+ * Sponsor logos
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Every logo sits in the same-size box, centred, so square seals and wide
+ * wordmarks read as one even row; leftover logos centre on the last row.
+ */
+.sfv-logo-grid {
+	align-items: center;
+	gap: 40px clamp(20px, 2vw, 28px);
+	margin-block: clamp(32px, 4vw, 56px);
+}
+
+/* 150px boxes at desktop width give two rows (7 + 6) inside the 1220px column. */
+.sfv-logo-grid .wp-block-image {
+	align-items: center;
+	aspect-ratio: 3 / 2;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	width: clamp(120px, 10.4vw, 150px);
+}
+
+.sfv-logo-grid img {
+	height: 100%;
+	object-fit: contain;
+	width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+ * Galleries, secondary buttons, FAQ, announcement
+ * ------------------------------------------------------------------------- */
+
+.sfv-gallery {
+	margin-block-start: var(--wp--preset--spacing--40);
+}
+
+.sfv-gallery.wp-block-gallery img {
+	border-radius: var(--wp--custom--radius--card);
+}
+
+/* Secondary button: same pill, white fill. */
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	background: var(--wp--preset--color--white);
+	border: var(--wp--custom--border--width) solid var(--wp--preset--color--teal);
+	color: var(--wp--preset--color--deep);
+}
+
+.sfv-ways h3 {
+	color: var(--wp--preset--color--deep);
+	margin-block-end: 0.3em;
+}
+
+.sfv-ways p {
+	margin-block: 0 0.75em;
+}
+
+.wp-block-details {
+	border-bottom: var(--wp--custom--border--width) solid var(--wp--preset--color--deep);
+	padding-block: 0;
+}
+
+.sfv-faq .wp-block-details:first-of-type {
+	border-top: var(--wp--custom--border--width) solid var(--wp--preset--color--deep);
+}
+
+.wp-block-details summary {
+	color: var(--wp--preset--color--deep);
+	cursor: pointer;
+	font-weight: 700;
+	list-style: none;
+	padding: 18px 44px 18px 0;
+	position: relative;
+}
+
+.wp-block-details summary::-webkit-details-marker {
+	display: none;
+}
+
+/* Plus / minus marker; decorative, so screen readers skip it. */
+.wp-block-details summary::after {
+	content: "+" / "";
+	font-size: 1.4em;
+	line-height: 1;
+	position: absolute;
+	right: 4px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.wp-block-details[open] summary::after {
+	content: "\2212" / "";
+}
+
+.wp-block-details > :not(summary) {
+	margin-block: 0 18px;
+}
+
+.sfv-announcement p {
+	margin: 0;
+}
+
+.sfv-announcement a {
+	color: var(--wp--preset--color--deep);
+}
+
+/* ---------------------------------------------------------------------------
+ * Footer
+ * ------------------------------------------------------------------------- */
+
+.sfv-site-footer {
+	margin-block-start: 0;
+}
+
+.sfv-footer {
+	background: var(--wp--preset--color--teal);
+	color: var(--wp--preset--color--white);
+	padding: clamp(40px, 5vw, 64px) var(--wp--style--root--padding-right) 32px var(--wp--style--root--padding-left);
+}
+
+.sfv-footer a {
+	color: var(--wp--preset--color--white);
+}
+
+/* 44px-tall tap targets for every footer link. */
+.sfv-footer__nav a,
+.sfv-footer__social a,
+.sfv-footer__contact a {
+	align-items: center;
+	display: inline-flex;
+	line-height: 1.3;
+	min-height: 44px;
+}
+
+.sfv-footer__inner,
+.sfv-footer__bottom {
+	margin: 0 auto;
+	max-width: var(--wp--style--global--wide-size);
+}
+
+.sfv-footer__inner {
+	display: grid;
+	gap: 32px;
+	grid-template-columns: 1.3fr 1fr 1.6fr 1fr;
+}
+
+.sfv-footer__brand img {
+	display: block;
+	height: auto;
+	width: 180px;
+}
+
+.sfv-footer__nav a,
+.sfv-footer__social a,
+.sfv-footer__contact h2 {
+	font-size: var(--wp--preset--font-size--kicker);
+	font-weight: 700;
+	line-height: 2;
+	text-transform: uppercase;
+}
+
+.sfv-footer__contact h2 {
+	color: var(--wp--preset--color--white);
+	margin: 0;
+}
+
+.sfv-footer__contact p {
+	font-size: var(--wp--preset--font-size--small);
+	margin: 0 0 12px;
+}
+
+.sfv-footer__contact a {
+	font-size: var(--wp--preset--font-size--kicker);
+}
+
+.sfv-footer__legal {
+	line-height: 1.5;
+}
+
+.sfv-footer__bottom {
+	display: flex;
+	flex-wrap: wrap;
+	font-size: var(--wp--preset--font-size--small);
+	gap: 16px 48px;
+	justify-content: space-between;
+	margin-top: 40px;
+}
+
+.sfv-footer__bottom p {
+	margin: 0;
+	max-width: 32em;
+}
+
+/* ---------------------------------------------------------------------------
+ * Narrow screens
+ * ------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+	:root {
+		--sfv-header-offset: 190px;
+	}
+
+	/* The side gradient leaves bright photo behind the heading on narrow
+	   screens; use an even wash so white text keeps its contrast. */
+	.sfv-hero .wp-block-cover__background,
+	.sfv-banner .wp-block-cover__background {
+		background: rgba(1, 48, 59, 0.82) !important;
+	}
+
+	.sfv-site-header {
+		padding-top: 16px;
+	}
+
+	.sfv-header__bar {
+		padding: 12px 16px;
+	}
+
+	.sfv-nav ul {
+		gap: 8px 24px;
+	}
+
+	.sfv-footer__inner {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (max-width: 480px) {
+	.sfv-brand {
+		font-size: 1.1875rem;
+	}
+
+	.sfv-nav ul {
+		gap: 8px 18px;
+	}
+
+	.sfv-footer__inner {
+		grid-template-columns: 1fr;
+	}
+}

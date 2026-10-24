@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sfv/homepage-season",
+	"title": "Homepage season",
+	"category": "theme",
+	"icon": "calendar-alt",
+	"description": "Shows the current season's section (registration open, thank you, or get involved). Switch it under Pages → Homepage season.",
+	"textdomain": "sfv-theme",
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"reusable": false,
+		"align": [ "full" ]
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "full" }
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}
