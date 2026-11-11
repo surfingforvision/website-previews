@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sfv/registration-form",
+	"title": "Registration Form",
+	"category": "widgets",
+	"icon": "groups",
+	"description": "The Surfing for Vision registration form with the release agreement. Shows a thank-you message after someone registers, and a \"registration opens soon\" message while registration is closed.",
+	"keywords": [
+		"register",
+		"signup",
+		"form"
+	],
+	"textdomain": "sfv-registration",
+	"attributes": {
+		"successHeading": {
+			"type": "string",
+			"default": "Thanks for Registering for Surfing for Vision 2026!"
+		},
+		"successMessage": {
+			"type": "string",
+			"default": "You will receive a confirmation email shortly."
+		},
+		"closedHeading": {
+			"type": "string",
+			"default": "Registration opens soon!"
+		},
+		"closedMessage": {
+			"type": "string",
+			"default": "Registration for the next Surfing for Vision isn’t open yet. Check back soon, or follow @surfingforvision on Instagram to hear the moment it opens.\n\nIn the meantime, you can help keep the day free for every surfer."
+		}
+	},
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}
